@@ -1,0 +1,25 @@
+artifacts = ["/app/dijkstra.py"]
+schema_version = "2.0"
+[task]
+name = "insight/dijkstra"
+description = "Dijkstra single-source shortest paths over a non-negative weighted graph (directed or undirected), reporting per-node distances with null for unreachable nodes. Graded by exact JSON comparison on a sample and six held-out seed-generated cases."
+[metadata]
+difficulty_explanation = "Single-source shortest paths with a binary heap. The agent must build the adjacency list (doubling undirected edges), run a lazy-deletion heap Dijkstra, and report unreachable nodes as null rather than infinity or a sentinel. Using BFS (ignoring weights) or failing to skip stale heap entries are common mistakes."
+solution_explanation = "Build an adjacency list, run a heapq-based Dijkstra with a distance array and stale-entry skipping, then map infinities to null. ~45 lines of standard-library Python."
+verification_explanation = "A hidden verifier runs the candidate on one sample and six held-out seed-generated cases and compares the emitted JSON exactly. The stub emits a trivial/empty answer and fails (Nop = 0); the reference passes all (Oracle = 1)."
+category = "SWE"
+subcategory = "Graphs"
+tags = ["python", "dijkstra", "shortest-path", "graphs", "heap", "terminal-bench"]
+expert_time_estimate_hours = 1
+relevant_experience = "Graph shortest paths and priority-queue algorithms."
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+[agent]
+timeout_sec = 3600.0
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 1024
+storage_mb = 2048
+gpus = 0
