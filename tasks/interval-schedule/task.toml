@@ -1,0 +1,25 @@
+artifacts = ["/app/interval-schedule.py"]
+schema_version = "2.0"
+[task]
+name = "insight/interval-schedule"
+description = "Weighted interval scheduling: maximum total weight of a set of pairwise non-overlapping half-open intervals. Graded by exact JSON comparison on a sample and six held-out seed-generated cases."
+[metadata]
+difficulty_explanation = "Weighted interval scheduling. Sorting by end time and, for each interval, binary-searching the latest compatible predecessor is the clean O(n log n) solution. Half-open semantics matter: touching endpoints do not conflict, and a greedy earliest-finish choice ignores weights and is wrong."
+solution_explanation = "Sort intervals by end, and for each compute best = max(skip, weight + best up to the latest interval ending at or before its start), found by binary search. ~25 lines of standard-library Python."
+verification_explanation = "A hidden verifier runs the candidate on one sample and six held-out seed-generated cases and compares the emitted JSON exactly. The stub emits a trivial/empty answer and fails (Nop = 0); the reference passes all (Oracle = 1)."
+category = "SWE"
+subcategory = "Dynamic Programming"
+tags = ["python", "dynamic-programming", "scheduling", "binary-search", "terminal-bench"]
+expert_time_estimate_hours = 1
+relevant_experience = "Interval DP and binary search over sorted endpoints."
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+[agent]
+timeout_sec = 3600.0
+[environment]
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 1024
+storage_mb = 2048
+gpus = 0
